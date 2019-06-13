@@ -13,6 +13,8 @@ inputs = sess.graph.get_tensor_by_name('input:0')
 pred_cls_p = sess.graph.get_tensor_by_name('pred_cls:0')
 pred_loc_p = sess.graph.get_tensor_by_name('pred_reg:0')
 
+print(np.sum([np.prod(v.get_shape().as_list()) for v in tf.trainable_variables()])) #number of parameters
+
 with open('data1.txt') as f:
     for line in f.readlines():
         start = time.time()
@@ -20,8 +22,6 @@ with open('data1.txt') as f:
         image = cv2.imread(line.split()[0])
         image = cv2.resize(image, (320, 240)) / 255.
         image_feed = np.expand_dims(image, 0)
-
-
 
         pred_cls, pred_reg = sess.run([pred_cls_p, pred_loc_p], feed_dict={inputs: image_feed})
         pred_cls, pred_reg = pred_cls[0], pred_reg[0]
@@ -41,4 +41,3 @@ with open('data1.txt') as f:
         cv2.waitKey(3000)
 
         print(time.time()-start)
-
