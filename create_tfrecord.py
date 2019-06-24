@@ -123,6 +123,14 @@ def _parse(example):
     image = parsed_example['image']
     image = tf.decode_raw(image, out_type=tf.float64)
     image = tf.reshape(image, cfg.input_shape[1:])
+    
+    # image augment
+    # image = tf.image.random_brightness(image,32.0/255.0)
+    # image = tf.image.random_saturation(image,lower=0.5,upper=1.5)
+    # image = tf.image.random_contrast(image,0.5,2)
+    # image = tf.image.random_hue(image,max_delta=0.5)
+    # image = tf.clip_by_value(image,0.0,1.0)
+    
     # image = tf.image.resize_images(image, [640,480])  # resize后为float类型
     # image = tf.image.convert_image_dtype(image, dtype=tf.float32)
     true_cls = parsed_example['true_cls']
