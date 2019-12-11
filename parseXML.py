@@ -5,7 +5,7 @@ import os
 def _parse(file):
     root = ElementTree.parse(file)
     box = root.find('object').find('bndbox')
-    path = root.find('path').text #修改
+    path = root.find('path').text
     xmin = box.find('xmin').text
     xmax = box.find('xmax').text
     ymin = box.find('ymin').text
